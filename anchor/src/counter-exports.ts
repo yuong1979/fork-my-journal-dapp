@@ -4,9 +4,12 @@ import { Cluster, PublicKey } from '@solana/web3.js';
 import CounterIDL from '../target/idl/counter.json';
 import type { Counter } from '../target/types/counter';
 
+<<<<<<< HEAD
 // // Extend the Cluster type to include 'localnet'
 // type CustomCluster = Cluster | 'localnet';
 
+=======
+>>>>>>> da55076 (chore: initial commit)
 // Re-export the generated IDL and type
 export { Counter, CounterIDL };
 
@@ -19,6 +22,7 @@ export function getCounterProgram(provider: AnchorProvider) {
 }
 
 // This is a helper function to get the program ID for the Counter program depending on the cluster.
+<<<<<<< HEAD
 // export function getCounterProgramId(cluster: CustomCluster) {
 export function getCounterProgramId(cluster: Cluster) {
   switch (cluster) {
@@ -36,6 +40,14 @@ export function getCounterProgramId(cluster: Cluster) {
     //   // Replace with the actual program ID you generated for your local network.
     //   return new PublicKey('6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE');
       
+=======
+export function getCounterProgramId(cluster: Cluster) {
+  switch (cluster) {
+    case 'devnet':
+    case 'testnet':
+      // This is the program ID for the Counter program on devnet and testnet.
+      return new PublicKey('CounNZdmsQmWh7uVngV9FXW2dZ6zAgbJyYsvBpqbykg');
+>>>>>>> da55076 (chore: initial commit)
     case 'mainnet-beta':
     default:
       return COUNTER_PROGRAM_ID;

@@ -15,7 +15,6 @@ import {
 } from './account-ui';
 
 export default function AccountDetailFeature() {
-
   const params = useParams();
   const address = useMemo(() => {
     if (!params.address) {

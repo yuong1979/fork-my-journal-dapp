@@ -100,8 +100,6 @@ npm run build
 
 
 
-
-
 solana config get
 
 solana config set --url http://localhost:8899
@@ -154,3 +152,5 @@ anchor test
 ``` deploy to devnet (run inside anchor directory)
 anchor deploy --provider.cluster devnet
 ```
+=======
+

@@ -651,6 +651,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f7144d30dcf0fafbce74250a3963025d8d52177934239851c917d29f1df280c2"
 
 [[package]]
+<<<<<<< HEAD
 name = "counter"
 version = "0.1.0"
 dependencies = [
@@ -658,6 +659,8 @@ dependencies = [
 ]
 
 [[package]]
+=======
+>>>>>>> da55076 (chore: initial commit)
 name = "cpufeatures"
 version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"

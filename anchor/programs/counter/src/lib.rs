@@ -3,8 +3,12 @@
 use anchor_lang::prelude::*;
 
 declare_id!("6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE");
+<<<<<<< HEAD
 // 7AGmMcgd1SjoMsCcXAAYwRgB9ihCyM8cZqjsUqriNRQt - new
 // 6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE - backup 
+=======
+
+>>>>>>> da55076 (chore: initial commit)
 #[program]
 pub mod counter {
     use super::*;
