@@ -12,7 +12,7 @@ import {
   AccountButtons,
   AccountTokens,
   AccountTransactions,
-} from './account-ui';
+} from './test-ui';
 
 export default function AccountDetailFeature() {
 
@@ -34,7 +34,14 @@ export default function AccountDetailFeature() {
   return (
     <div>
       <AppHero
-        title={<AccountBalance address={address} />}
+        // title={<AccountBalance address={address} />}
+
+        title={
+          <div style={{ border: '2px solid red', padding: '10px' }}>
+            <AccountBalance address={address} />
+          </div>
+        }
+
         subtitle={
           <div className="my-4">
             <ExplorerLink

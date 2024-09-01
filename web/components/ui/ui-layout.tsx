@@ -15,6 +15,14 @@ import {
 } from '../cluster/cluster-ui';
 import toast, { Toaster } from 'react-hot-toast';
 
+// import  {CountryList, fetchAllTokenAccounts} from '../test/test-data-access';
+// import  {CountryList} from '../test/test-data-access';
+// import  {TokenAccountsComponent} from '../test/test-data-access';
+// import  {TodoApp} from '../test/test-data-access';
+
+
+
+
 export function UiLayout({
   children,
   links,
@@ -79,6 +87,24 @@ export function UiLayout({
           </p>
         </aside>
       </footer>
+
+
+
+
+      {/* Add CountryList here to display it at the bottom */}
+      <div className="mx-4 lg:mx-auto">
+
+      {/* < fetchAllTokenAccounts /> */}
+        {/* <CountryList />  */}
+        {/* < TokenAccountsComponent /> */}
+        {/* < TodoApp /> */}
+        
+      </div>
+      
+
+
+
+
     </div>
   );
 }
@@ -190,3 +216,5 @@ export function useTransactionToast() {
     );
   };
 }
+
+

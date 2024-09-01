@@ -13,8 +13,10 @@ const links: { label: string; path: string }[] = [
   { label: 'Account', path: '/account' },
   { label: 'Clusters', path: '/clusters' },
   { label: 'Counter Program', path: '/counter' },
+  { label: 'Testing', path: '/test' },
 ];
 
+//Inside the RootLayout, the children prop is populated with the content of the current page, which in this case is the DashboardFeature component from page.tsx.
 export default function RootLayout({
   children,
 }: {
@@ -26,7 +28,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <ClusterProvider>
             <SolanaProvider>
-              <UiLayout links={links}>{children}</UiLayout>
+              <UiLayout links={links}>{children}</UiLayout> 
             </SolanaProvider>
           </ClusterProvider>
         </ReactQueryProvider>

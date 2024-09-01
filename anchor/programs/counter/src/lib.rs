@@ -3,7 +3,8 @@
 use anchor_lang::prelude::*;
 
 declare_id!("6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE");
-
+// 7AGmMcgd1SjoMsCcXAAYwRgB9ihCyM8cZqjsUqriNRQt - new
+// 6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE - backup 
 #[program]
 pub mod counter {
     use super::*;

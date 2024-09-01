@@ -95,3 +95,62 @@ Build the web app
 ```shell
 npm run build
 ```
+
+
+
+
+
+
+
+solana config get
+
+solana config set --url http://localhost:8899
+
+solana config set --url devnet
+
+
+Things to do
+- consolidate the files into my-journal-dapp and make sure they can be run
+- complete the tutorial for https://solana.com/developers/guides/dapps/journal 
+- configure so that this can be deployed on to local as well
+- document how to deploy this on local
+
+
+
+``` synchronise all the keys in your project 
+anchor/src/file.ts
+anchor/programs/counter/src/lib.rs - change the declareid
+anchor/Anchor.toml
+anchor/programs/counter/target/idl/file.json
+anchor/programs/counter/target/types/file.ts
+
+``` 
+
+
+
+#### install and deploy frontend ####
+
+``` install the neccessary packages
+npm install
+```
+
+``` run the frontend
+npm run dev
+```
+
+#### deploy on devnet ####
+
+``` change all script to devnet on - ?
+```
+
+``` run test (run inside anchor directory)
+anchor build
+```
+
+``` run test (run inside anchor directory)
+anchor test
+```
+
+``` deploy to devnet (run inside anchor directory)
+anchor deploy --provider.cluster devnet
+```
