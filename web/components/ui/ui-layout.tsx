@@ -15,10 +15,10 @@ import {
 } from '../cluster/cluster-ui';
 import toast, { Toaster } from 'react-hot-toast';
 
-// import  {CountryList, fetchAllTokenAccounts} from '../test/test-data-access';
-// import  {CountryList} from '../test/test-data-access';
-// import  {TokenAccountsComponent} from '../test/test-data-access';
-// import  {TodoApp} from '../test/test-data-access';
+
+import  {CountryList} from '../test/test-all';
+import  {TokenAccountsComponent} from '../test/test-all';
+import  {TodoApp} from '../test/test-all';
 
 
 
@@ -31,6 +31,7 @@ export function UiLayout({
   links: { label: string; path: string }[];
 }) {
   const pathname = usePathname();
+
 
   return (
     <div className="h-full flex flex-col">
@@ -193,6 +194,7 @@ export function AppHero({
   );
 }
 
+// The ellipsify function is designed to format a given string by truncating it and adding ellipses (..) when the string exceeds a specified length. This is particularly useful for displaying long strings in a more compact and readable format, such as wallet addresses or long text fields. 
 export function ellipsify(str = '', len = 4) {
   if (str.length > 30) {
     return (

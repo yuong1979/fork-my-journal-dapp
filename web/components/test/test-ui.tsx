@@ -18,7 +18,7 @@ import {
 
 export function AccountBalance({ address }: { address: PublicKey }) {
   const query = useGetBalance({ address });
-  // query.refetch() //if you want the query to refetch without button being activated - there is no button in the first place
+  // query.refetch() //if you want the query to refetch without button being activated - there is no button in the first place, but I feel that it is redundant because - Excluding query.refetch(): If you exclude query.refetch() from your code, you won't be able to manually refresh the data by user action. However, the data will still be fetched initially when the component mounts, and it may be refetched automatically based on the configuration of the useQuery hook. 
   return (
     <div>
       <h1
@@ -42,6 +42,8 @@ export function AccountChecker() {
   }
   return <AccountBalanceCheck address={publicKey} />;
 }
+
+// mutateAsync method runs the mutationFn inside the useMutation with a parameter of 1 in this case is the token amount
 export function AccountBalanceCheck({ address }: { address: PublicKey }) {
   const { cluster } = useCluster();
   const mutation = useRequestAirdrop({ address });
@@ -70,6 +72,8 @@ export function AccountBalanceCheck({ address }: { address: PublicKey }) {
   }
   return null;
 }
+
+
 
 export function AccountButtons({ address }: { address: PublicKey }) {
   const wallet = useWallet();

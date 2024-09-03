@@ -1,5 +1,6 @@
-import AccountListFeature from '@/components/account/account-list-feature';
+import TestAccountListFeature from '@/components/test/test-list-feature';
 
 export default function Page() {
-  return <AccountListFeature />;
+  return <TestAccountListFeature />;
 }
+

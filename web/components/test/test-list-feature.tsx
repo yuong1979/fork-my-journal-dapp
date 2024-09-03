@@ -5,11 +5,13 @@ import { WalletButton } from '../solana/solana-provider';
 
 import { redirect } from 'next/navigation';
 
-export default function AccountListFeature() {
+export default function TestAccountListFeature() {
   const { publicKey } = useWallet();
 
+  // if there is not publicKey detected than just show wallet if public key detected redirect to wallet details
+
   if (publicKey) {
-    return redirect(`/account/${publicKey.toString()}`);
+    return redirect(`/test/${publicKey.toString()}`);
   }
 
   return (
