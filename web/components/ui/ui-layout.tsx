@@ -22,7 +22,6 @@ import  {TodoApp} from '../test/test-all';
 
 
 
-
 export function UiLayout({
   children,
   links,
@@ -95,10 +94,10 @@ export function UiLayout({
       {/* Add CountryList here to display it at the bottom */}
       <div className="mx-4 lg:mx-auto">
 
-      {/* < fetchAllTokenAccounts /> */}
+
         {/* <CountryList />  */}
         {/* < TokenAccountsComponent /> */}
-        {/* < TodoApp /> */}
+        < TodoApp />
         
       </div>
       

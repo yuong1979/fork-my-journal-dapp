@@ -26,6 +26,113 @@ import React, { useEffect, useState } from 'react';
 
 
 
+////////////////////////////////////////////////////////////////////////////////////
+///////////////// Demonstration of useMutation /////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
+interface Todo {
+    title: string;
+    _id?: string; // Optional _id field for MongoDB
+  }
+  
+  // Function to fetch todos from the database
+  const fetchTodos = async (): Promise<Todo[]> => {
+    const response = await fetch('/api/todos');
+    if (!response.ok) {
+      throw new Error('Failed to fetch todos');
+    }
+    const data = await response.json();
+    return data.todos; // Assuming the server returns the todos in this format
+  };
+  
+  // Function to create a new todo
+  const createTodo = async (newTodo: Todo): Promise<Todo> => {
+    const response = await fetch('/api/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTodo),
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to create todo: ${errorData.error || 'Unknown error'}`);
+    }
+  
+    const data = await response.json();
+    return data.todo; // Assuming the server returns the created todo in the response
+  };
+  
+  export const TodoApp: React.FC = () => {
+    const [title, setTitle] = useState<string>('');
+    const queryClient = useQueryClient();
+
+    const { data: todos, error, isLoading } = useQuery<Todo[]>({
+        queryKey: ['todos'], // Use an array for the query key
+        queryFn: fetchTodos,
+      });
+  
+    const mutation = useMutation({
+      mutationFn: createTodo,
+      onSuccess: (data) => {
+        console.log('Todo created successfully!');
+        setTitle('');
+        // Refetch the todos to update the list
+        queryClient.invalidateQueries({ queryKey: ['todos'] }); // Pass an object with queryKey
+      },
+      onError: (error: Error) => {
+        console.error('Error creating todo:', error.message);
+      },
+    });
+  
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      mutation.mutate({ title });
+    };
+  
+    if (isLoading) return <p>Loading todos...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+  
+    return (
+      <div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter todo title"
+          />
+          <button type="submit" disabled={mutation.status === 'pending'}>
+            {mutation.status === 'pending' ? 'Adding...' : 'Add Todo'}
+          </button>
+          {mutation.isError && <p>Error: {mutation.error.message}</p>}
+        </form>
+  
+        <ul>
+          {todos && todos.map((todo) => (
+            <li key={todo._id}>{todo.title}</li> // Display each todo item
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -90,87 +197,6 @@ export const TokenAccountsComponent = () => {
 
 
 
-////////////////////////////////////////////////////////////////////////////////////
-///////////////// Demonstration of useMutation /////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-
-interface Todo {
-    title: string;
-  }
-  
-  const createTodo = async (newTodo: Todo): Promise<Todo> => {
-  
-    // Simulate the server response
-    const mockResponse = {
-      id: '1',
-      title: newTodo.title,
-      completed: false,
-    };
-  
-    // Return the mock response as a resolved promise
-    return Promise.resolve(mockResponse);
-  
-    // ////// if you have a database ///////
-    // const response = await fetch('/api/todos', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(newTodo),
-    // });
-  
-    // if (!response.ok) {
-    //   // Throwing a more descriptive error message
-    //   const errorData = await response.json(); // Assuming the server returns JSON with error details
-    //   console.log(errorData.message)
-    //   throw new Error(`Failed to create todo: ${errorData.message || 'Unknown error'}`);
-    // 
-    // return response.json();
-  
-  };
-  
-  
-  export const TodoApp: React.FC = () => {
-    const [title, setTitle] = useState<string>('');
-  
-    // Using useMutation with the new version 5 syntax
-    const mutation = useMutation({
-      mutationFn: createTodo, // Specify the mutation function
-      onSuccess: () => {
-        console.log('Todo created successfully!');
-      },
-      onError: (error: Error) => {
-        console.error('Error creating todo:', error.message);
-      },
-    });
-  
-  
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      mutation.mutate({ title });
-    };
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter todo title"
-        />
-  
-        <button type="submit" disabled={mutation.status === 'pending'}>
-          {mutation.status === 'pending' ? 'Adding...' : 'Add Todo'}
-        </button>
-  
-  
-        {mutation.isError && <p>Error: {mutation.error.message}</p>}
-      </form>
-    );
-  };
-  
-  
-  
   
   
   
@@ -243,56 +269,6 @@ interface Todo {
   
   
   
-  // import React, { useState } from 'react';
-  // import { useMutation, useQueryClient } from 'react-query';
-  
-  // const createTodo = async (newTodo) => {
-  //   const response = await fetch('/api/todos', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(newTodo),
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error('Failed to create todo');
-  //   }
-  //   return response.json();
-  // };
-  
-  // const TodoApp = () => {
-  //   const [title, setTitle] = useState('');
-  //   const queryClient = useQueryClient();
-  
-  //   const mutation = useMutation(createTodo, {
-  //     onSuccess: (data) => {
-  //       queryClient.invalidateQueries('todos'); // Invalidate the 'todos' query
-  //       console.log('Todo created successfully!', data);
-  //     },
-  //     onError: (error) => {
-  //       console.error('Error creating todo:', error);
-  //     },
-  //   });
-  
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     mutation.mutate({ title });
-  //   };
-  
-  //   return (
-  //     <form onSubmit={handleSubmit}>
-  //       <input
-  //         type="text"
-  //         value={title}
-  //         onChange={(e) => setTitle(e.target.value)}
-  //         placeholder="Enter todo title"
-  //       />
-  //       <button type="submit" disabled={mutation.isLoading}>
-  //         {mutation.isLoading ? 'Adding...' : 'Add Todo'}
-  //       </button>
-  //       {mutation.isError && <p>Error: {mutation.error.message}</p>}
-  //     </form>
-  //   );
-  // };
-  
-  // export default TodoApp;
+
+
+    

@@ -22,7 +22,7 @@ export async function GET() {
     await client.connect();
     
     // Access the database (replace 'sample_mflix' with your actual database name)
-    const db = client.db('sample_mflix'); 
+    const db = client.db('todo-app'); 
 
     // Perform a simple operation, such as fetching a collection
     const collections = await db.collections();
@@ -38,4 +38,9 @@ export async function GET() {
   }
 }
 
+
+//access this page with -  http://localhost:3000/api/test
+
+
+// todo-app.todos
 
