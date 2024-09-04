@@ -11,12 +11,34 @@ import {
   TransactionSignature,
   VersionedTransaction,
   AccountInfo,
+  clusterApiUrl,
   ParsedAccountData
 } from '@solana/web3.js';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTransactionToast } from '../ui/ui-layout';
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,7 +86,7 @@ interface Todo {
     return data.todo; // Assuming the server returns the created todo in the response
   };
   
-  export const TodoApp: React.FC = () => {
+  export const TodoUseMutationApp: React.FC = () => {
     const [title, setTitle] = useState<string>('');
     const queryClient = useQueryClient();
 
@@ -114,6 +136,7 @@ interface Todo {
             <li key={todo._id}>{todo.title}</li> // Display each todo item
           ))}
         </ul>
+        
       </div>
     );
   };
@@ -135,14 +158,131 @@ interface Todo {
 
 
 
+  export interface Cluster {
+    name: string;
+    endpoint: string;
+    network?: ClusterNetwork;
+    active?: boolean;
+  }
+  
+  export enum ClusterNetwork {
+    Mainnet = 'mainnet-beta',
+    Testnet = 'testnet',
+    Devnet = 'devnet',
+    Custom = 'custom',
+  }
+  
+  // By default, we don't configure the mainnet-beta cluster
+  // The endpoint provided by clusterApiUrl('mainnet-beta') does not allow access from the browser due to CORS restrictions
+  // To use the mainnet-beta cluster, provide a custom endpoint
+  export const defaultClusters: Cluster[] = [
+    {
+      name: 'devnet',
+      endpoint: clusterApiUrl('devnet'),
+      network: ClusterNetwork.Devnet,
+    },
+    { name: 'local', endpoint: 'http://localhost:8899' },
+    {
+      name: 'testnet',
+      endpoint: clusterApiUrl('testnet'),
+      network: ClusterNetwork.Testnet,
+    },
+  ];
+  
+  const clusterAtom = atomWithStorage<Cluster>(
+    'solana-cluster',
+    defaultClusters[0]
+  );
+  const clustersAtom = atomWithStorage<Cluster[]>(
+    'solana-clusters',
+    defaultClusters
+  );
+  
+  const activeClustersAtom = atom<Cluster[]>((get) => {
+    const clusters = get(clustersAtom);
+    const cluster = get(clusterAtom);
+    return clusters.map((item) => ({
+      ...item,
+      active: item.name === cluster.name,
+    }));
+  });
+  
+  const activeClusterAtom = atom<Cluster>((get) => {
+    const clusters = get(activeClustersAtom);
+  
+    return clusters.find((item) => item.active) || clusters[0];
+  });
+  
+  export interface ClusterProviderContext {
+    cluster: Cluster;
+    clusters: Cluster[];
+    addCluster: (cluster: Cluster) => void;
+    deleteCluster: (cluster: Cluster) => void;
+    setCluster: (cluster: Cluster) => void;
+    getExplorerUrl(path: string): string;
+  }
+  
+  const Context = createContext<ClusterProviderContext>(
+    {} as ClusterProviderContext
+  );
+
+  export const TestClusterComponent = () => {
+    const { connection } = useConnection();
+    const [tokenAccounts, setTokenAccounts] = useState<TokenAccount[]>([]);
+    const [walletBalance, setWalletBalance] = useState<number | null>(null); // State for wallet balance
+    
+    // console.log('context',Context)
+    console.log('testing123')
+    console.log('defaultClusters', defaultClusters)
+    
+
+    // useEffect(() => {
+    //   const fetchTokenAccounts = async () => {
+    //     const tokenAccountsResponse = await connection.getParsedTokenAccountsByOwner(address, {
+    //       programId: TOKEN_PROGRAM_ID,
+    //     });
+    //     setTokenAccounts(tokenAccountsResponse.value); // Set the fetched token accounts directly
+    //   };
+    //   fetchTokenAccounts();
+  
+    //   const fetchWalletBalance = async () => {
+    //       const balance = await connection.getBalance(address); // Await the balance
+    //       setWalletBalance(balance); // Set the balance state
+    //       console.log("Wallet Balance:", balance); // Log the balance
+    //     };
+    //     fetchWalletBalance()
+    // }, [connection]);
+  
+    return (
+      <div>
+        <h2>Token Accounts</h2>
+
+      </div>
+    );
+  };
+  
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 //////////////////////////////////////////////////////////////////////////////////
-/////////////// console logging unknown syntaxes /////////////////////////////////////////////
+/////////////// Testing different solana apis /////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
+
+// phantom wallet address AfqgStkQV7wkBdiLbPL5T6w2GJjFqGzGWWXCmMeNApTt
+
+// const { publicKey } = useWallet();
+// console.log("publicKey", publicKey?.toString())
 
 const address = new PublicKey('AfqgStkQV7wkBdiLbPL5T6w2GJjFqGzGWWXCmMeNApTt');
 
@@ -152,28 +292,26 @@ interface TokenAccount {
   account: AccountInfo<ParsedAccountData>;
 }
 
-async function fetchAllTokenAccounts({ address }: { address: PublicKey }, connection: Connection) {
-  const [tokenAccounts, token2022Accounts] = await Promise.all([
-    connection.getParsedTokenAccountsByOwner(address, {
-      programId: TOKEN_PROGRAM_ID,
-    }),
-    connection.getParsedTokenAccountsByOwner(address, {
-      programId: TOKEN_2022_PROGRAM_ID,
-    }),
-  ]);
-  return [...tokenAccounts.value, ...token2022Accounts.value];
-}
-
-export const TokenAccountsComponent = () => {
+export const TestComponent = () => {
   const { connection } = useConnection();
   const [tokenAccounts, setTokenAccounts] = useState<TokenAccount[]>([]);
-
+  const [walletBalance, setWalletBalance] = useState<number | null>(null); // State for wallet balance
+  
   useEffect(() => {
     const fetchTokenAccounts = async () => {
-      const accounts = await fetchAllTokenAccounts({ address }, connection);
-      setTokenAccounts(accounts);
+      const tokenAccountsResponse = await connection.getParsedTokenAccountsByOwner(address, {
+        programId: TOKEN_PROGRAM_ID,
+      });
+      setTokenAccounts(tokenAccountsResponse.value); // Set the fetched token accounts directly
     };
     fetchTokenAccounts();
+
+    const fetchWalletBalance = async () => {
+        const balance = await connection.getBalance(address); // Await the balance
+        setWalletBalance(balance); // Set the balance state
+        console.log("Wallet Balance:", balance); // Log the balance
+      };
+      fetchWalletBalance()
   }, [connection]);
 
   return (
@@ -184,6 +322,9 @@ export const TokenAccountsComponent = () => {
           <li key={account.pubkey.toString()}>{account.pubkey.toString()}</li>
         ))}
       </ul>
+
+      {walletBalance !== null && <p>Wallet Balance: {walletBalance} lamports</p>} {/* Display the balance */}
+
     </div>
   );
 };
@@ -196,22 +337,19 @@ export const TokenAccountsComponent = () => {
 
 
 
+  
+  
+  
+  
+  
+  
+  
+  
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   //////////////////////////////////////////////////////////////////////////////////
   /////////////// Demonstration of useQuery /////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////
-  
-  ///// unhide this in ui-layout.tsx to see it in action -  {/* <CountryList />  */}
   
   // Define the Country type based on the expected structure from the API
   interface Country {
@@ -219,7 +357,7 @@ export const TokenAccountsComponent = () => {
         common: string; // Common name of the country
       };
     }
-    export const CountryList = () => {
+    export const CountryUseQueryApp = () => {
     const { data, isLoading, isError, error } = useQuery<Country[]>({ // is data, isLoading, isError keywords
       queryKey: ['countries_list'],
       queryFn: fetchCountries,
@@ -233,7 +371,7 @@ export const TokenAccountsComponent = () => {
     if (isError) {
       return <div>Error: {error.message}</div>;
     }
-    console.log(data)
+    // console.log(data)
   
     return (
       <div>
@@ -251,24 +389,153 @@ export const TokenAccountsComponent = () => {
   async function fetchCountries() {
       const response = await fetch('https://restcountries.com/v3.1/all');
       const data = await response.json(); // Parse the JSON response
-      console.log(data); // Log the data to the console
+    //   console.log(data); // Log the data to the console
       return data; // Return the parsed data
     }
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+  //////////////////////////////////////////////////////////////////////////////////
+  /////////////// Demonstration of jotai  - this is serving the same purpose as react context but more simple 
+  //////////////////////////////////////////////////////////////////////////////////
 
 
+    import { atom, useAtomValue, useSetAtom, useAtom } from 'jotai';
+    import { atomWithStorage } from 'jotai/utils';
     
+    // 1. Creating a simple atom with a number
+    const countAtom = atom(0);
+
+    // 2. Creating an atom that doubles the count
+    const doubledCountAtom = atom((get) => get(countAtom) * 2);
+
+    // 3. Creating an atom that persists its value in local storage
+    const darkModeAtom = atomWithStorage('darkMode', false);
+
+    // 4. Creating a component that uses the count atom
+    const Counter = () => {
+      //// use this two lines or use the below one line
+      // const count = useAtomValue(countAtom); // Read the current count
+      // const setCount = useSetAtom(countAtom); // Get the setter function
+      const [count, setCount] = useAtom(countAtom);
+
+      return (
+        <div>
+          <h2>Counter</h2>
+          <p>Count: {count}</p>
+          <button onClick={() => setCount((prev) => prev + 1)}>Increment</button>
+          <button onClick={() => setCount((prev) => prev - 1)}>Decrement</button>
+        </div>
+      );
+    };
+
+    // 5. Creating a component that uses the doubled count atom
+    const DoubledCounter = () => {
+      const doubledCount = useAtomValue(doubledCountAtom);
+
+      return (
+        <div>
+          <h2>Doubled Counter</h2>
+          <p>Doubled Count: {doubledCount}</p>
+        </div>
+      );
+    };
+
+    // 6. Creating a component that uses the dark mode atom
+    const DarkModeToggle = () => {
+      const [darkMode, setDarkMode] = useAtom(darkModeAtom);
+
+      return (
+        <div>
+          <h2>Dark Mode</h2>
+          <p>Current mode: {darkMode ? 'Dark' : 'Light'}</p>
+          <button onClick={() => setDarkMode((prev) => !prev)}>Toggle Dark Mode</button>
+        </div>
+      );
+    };
+
+    // 7. Creating the main app component
+    export const JotaiApp = () => {
+      return (
+        <div>
+          <h1>Jotai Example</h1>
+          <Counter />
+          <DoubledCounter />
+          <DarkModeToggle />
+        </div>
+      );
+    };
+
+
+
+  
+
+  
+  //////////////////////////////////////////////////////////////////////////////////
+  /////////////// Demonstration of createContext and useContext  - this is serving the same purpose as jotai but more complex 
+  //////////////////////////////////////////////////////////////////////////////////
+
+    // Define the shape of the context value
+    interface CounterContextType {
+      count: number;
+      increment: () => void;
+      decrement: () => void;
+    }
+    
+    // Create the context with a default value - which is undefined
+    const CounterContext = createContext<CounterContextType | undefined>(undefined);
+    
+    // Create a provider component - The CounterProvider component manages the state of the counter.
+    const CounterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+      const [count, setCount] = useState<number>(0);
+    
+      const increment = () => setCount((prev) => prev + 1);
+      const decrement = () => setCount((prev) => prev - 1);
+    
+      // The CounterContext.Provider wraps its children and provides the context value (which includes count, increment, and decrement) to any descendant components that consume this context.
+      return (
+        <CounterContext.Provider value={{ count, increment, decrement }}>
+          {children}
+        </CounterContext.Provider>
+      );
+    };
+    
+    // Create a custom hook to use the CounterContext - hook simplifies the process of accessing the context.
+    const useCounter = () => {
+      // to get the current context value.
+      const context = useContext(CounterContext);
+      if (context === undefined) {
+        throw new Error('useCounter must be used within a CounterProvider');
+      }
+      return context;
+    };
+    
+    // Create a component that uses the CounterContext
+    export const CounterComponent: React.FC = () => {
+      const { count, increment, decrement } = useCounter();
+      return (
+        <div>
+          <h1>Counter: {count}</h1>
+          <button onClick={increment}>Increment</button>
+          <button onClick={decrement}>Decrement</button>
+        </div>
+      );
+    };
+    
+    // Main App component
+    export const ContextApp: React.FC = () => {
+      return (
+        <CounterProvider>
+          <CounterComponent />
+        </CounterProvider>
+      );
+    };
+    
+
+  
+  
+
+
+

@@ -36,16 +36,17 @@ export const defaultClusters: Cluster[] = [
     network: ClusterNetwork.Testnet,
   },
 ];
-
+// Stores the currently active cluster, initialized with the first cluster from defaultClusters
 const clusterAtom = atomWithStorage<Cluster>(
   'solana-cluster',
   defaultClusters[0]
 );
+// Stores the list of available clusters, initialized with defaultClusters.
 const clustersAtom = atomWithStorage<Cluster[]>(
   'solana-clusters',
   defaultClusters
 );
-
+// This derived atom maps over the clustersAtom and sets the active property for each cluster based on the currently active cluster.
 const activeClustersAtom = atom<Cluster[]>((get) => {
   const clusters = get(clustersAtom);
   const cluster = get(clusterAtom);
@@ -54,13 +55,13 @@ const activeClustersAtom = atom<Cluster[]>((get) => {
     active: item.name === cluster.name,
   }));
 });
-
+// This derived atom returns the currently active cluster from activeClustersAtom.
 const activeClusterAtom = atom<Cluster>((get) => {
   const clusters = get(activeClustersAtom);
 
   return clusters.find((item) => item.active) || clusters[0];
 });
-
+// ClusterProviderContext: This interface defines the context that will be provided to the application, including the current cluster, list of clusters, and functions to add, delete, and set clusters.
 export interface ClusterProviderContext {
   cluster: Cluster;
   clusters: Cluster[];
@@ -74,6 +75,7 @@ const Context = createContext<ClusterProviderContext>(
   {} as ClusterProviderContext
 );
 
+//  This interface defines the context that will be provided to the application, including the current cluster, list of clusters, and functions to add, delete, and set clusters.
 export function ClusterProvider({ children }: { children: ReactNode }) {
   const cluster = useAtomValue(activeClusterAtom);
   const clusters = useAtomValue(activeClustersAtom);
@@ -81,8 +83,10 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
   const setClusters = useSetAtom(clustersAtom);
 
   const value: ClusterProviderContext = {
+    //Retrieves the current cluster and list of clusters from the atoms.
     cluster,
     clusters: clusters.sort((a, b) => (a.name > b.name ? 1 : -1)),
+    // Provides functions to add, delete, and set clusters.
     addCluster: (cluster: Cluster) => {
       try {
         new Connection(cluster.endpoint);
@@ -95,16 +99,20 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
       setClusters(clusters.filter((item) => item.name !== cluster.name));
     },
     setCluster: (cluster: Cluster) => setCluster(cluster),
+    //Generates Solana Explorer URLs based on the current cluster.
     getExplorerUrl: (path: string) =>
       `https://explorer.solana.com/${path}${getClusterUrlParam(cluster)}`,
   };
+  // Renders the Context.Provider with the created context value and the children components.
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
 
+// This custom hook allows components to access the Solana cluster context using useContext.
 export function useCluster() {
   return useContext(Context);
 }
 
+// This helper function generates the appropriate URL parameter for the Solana Explorer based on the current cluster's network.
 function getClusterUrlParam(cluster: Cluster): string {
   let suffix = '';
   switch (cluster.network) {

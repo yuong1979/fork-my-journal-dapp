@@ -39,13 +39,6 @@ export function useGetBalance({ address }: { address: PublicKey }) {
 
 
 
-
-
-
-
-
-
-
 export function useGetSignatures({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
 
@@ -55,6 +48,7 @@ export function useGetSignatures({ address }: { address: PublicKey }) {
   });
 }
 
+//tokenAccounts are the different tokens a specific wallet owns, ie. dogecoin, usdc, sol etc
 export function useGetTokenAccounts({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
 
@@ -68,10 +62,12 @@ export function useGetTokenAccounts({ address }: { address: PublicKey }) {
         connection.getParsedTokenAccountsByOwner(address, {
           programId: TOKEN_PROGRAM_ID,
         }),
+        //TOKEN_2022_PROGRAM_ID not used
         connection.getParsedTokenAccountsByOwner(address, {
           programId: TOKEN_2022_PROGRAM_ID,
         }),
       ]);
+      //tokenAccounts.value: This property contains an array of token accounts associated with a specific wallet address. 
       return [...tokenAccounts.value, ...token2022Accounts.value];
     },
   });

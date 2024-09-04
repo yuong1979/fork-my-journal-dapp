@@ -16,9 +16,12 @@ import {
 import toast, { Toaster } from 'react-hot-toast';
 
 
-import  {CountryList} from '../test/test-all';
-import  {TokenAccountsComponent} from '../test/test-all';
-import  {TodoApp} from '../test/test-all';
+import  {CountryUseQueryApp} from '../test/test-all';
+import  {TestComponent} from '../test/test-all';
+import  {TodoUseMutationApp} from '../test/test-all';
+import  {ContextApp} from '../test/test-all';
+import  {JotaiApp} from '../test/test-all';
+import  {TestClusterComponent} from '../test/test-all';
 
 
 
@@ -89,16 +92,16 @@ export function UiLayout({
       </footer>
 
 
-
-
-      {/* Add CountryList here to display it at the bottom */}
       <div className="mx-4 lg:mx-auto">
 
+        {/* < TodoUseMutationApp /> */}
+        {/* < CountryUseQueryApp />  */}
+        {/* < TestComponent /> */}
+        {/* < ContextApp /> */}
+        {/* < JotaiApp /> */}
 
-        {/* <CountryList />  */}
-        {/* < TokenAccountsComponent /> */}
-        < TodoApp />
-        
+
+        < TestClusterComponent />
       </div>
       
 
