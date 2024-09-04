@@ -18,6 +18,7 @@ import {
 
 export function AccountBalance({ address }: { address: PublicKey }) {
   const query = useGetBalance({ address });
+
   // query.refetch() //if you want the query to refetch without button being activated - there is no button in the first place, but I feel that it is redundant because - Excluding query.refetch(): If you exclude query.refetch() from your code, you won't be able to manually refresh the data by user action. However, the data will still be fetched initially when the component mounts, and it may be refetched automatically based on the configuration of the useQuery hook. 
   return (
     <div>

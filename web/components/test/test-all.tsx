@@ -17,10 +17,8 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useTransactionToast } from '../ui/ui-layout';
-import React, { createContext, useContext, useEffect, useState } from 'react';
-
-
-
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { useCluster } from '../cluster/cluster-data-access';
 
 
 
@@ -157,112 +155,45 @@ interface Todo {
 
 
 
+  
 
-  export interface Cluster {
-    name: string;
-    endpoint: string;
-    network?: ClusterNetwork;
-    active?: boolean;
-  }
+//////////////////////////////////////////////////////////////////////////////////
+/////////////// Testing cluster code /////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
   
-  export enum ClusterNetwork {
-    Mainnet = 'mainnet-beta',
-    Testnet = 'testnet',
-    Devnet = 'devnet',
-    Custom = 'custom',
-  }
-  
-  // By default, we don't configure the mainnet-beta cluster
-  // The endpoint provided by clusterApiUrl('mainnet-beta') does not allow access from the browser due to CORS restrictions
-  // To use the mainnet-beta cluster, provide a custom endpoint
-  export const defaultClusters: Cluster[] = [
-    {
-      name: 'devnet',
-      endpoint: clusterApiUrl('devnet'),
-      network: ClusterNetwork.Devnet,
-    },
-    { name: 'local', endpoint: 'http://localhost:8899' },
-    {
-      name: 'testnet',
-      endpoint: clusterApiUrl('testnet'),
-      network: ClusterNetwork.Testnet,
-    },
-  ];
-  
-  const clusterAtom = atomWithStorage<Cluster>(
-    'solana-cluster',
-    defaultClusters[0]
-  );
-  const clustersAtom = atomWithStorage<Cluster[]>(
-    'solana-clusters',
-    defaultClusters
-  );
-  
-  const activeClustersAtom = atom<Cluster[]>((get) => {
-    const clusters = get(clustersAtom);
-    const cluster = get(clusterAtom);
-    return clusters.map((item) => ({
-      ...item,
-      active: item.name === cluster.name,
-    }));
-  });
-  
-  const activeClusterAtom = atom<Cluster>((get) => {
-    const clusters = get(activeClustersAtom);
-  
-    return clusters.find((item) => item.active) || clusters[0];
-  });
-  
-  export interface ClusterProviderContext {
-    cluster: Cluster;
-    clusters: Cluster[];
-    addCluster: (cluster: Cluster) => void;
-    deleteCluster: (cluster: Cluster) => void;
-    setCluster: (cluster: Cluster) => void;
-    getExplorerUrl(path: string): string;
-  }
-  
-  const Context = createContext<ClusterProviderContext>(
-    {} as ClusterProviderContext
-  );
-
   export const TestClusterComponent = () => {
-    const { connection } = useConnection();
-    const [tokenAccounts, setTokenAccounts] = useState<TokenAccount[]>([]);
-    const [walletBalance, setWalletBalance] = useState<number | null>(null); // State for wallet balance
-    
-    // console.log('context',Context)
-    console.log('testing123')
-    console.log('defaultClusters', defaultClusters)
-    
-
-    // useEffect(() => {
-    //   const fetchTokenAccounts = async () => {
-    //     const tokenAccountsResponse = await connection.getParsedTokenAccountsByOwner(address, {
-    //       programId: TOKEN_PROGRAM_ID,
-    //     });
-    //     setTokenAccounts(tokenAccountsResponse.value); // Set the fetched token accounts directly
-    //   };
-    //   fetchTokenAccounts();
   
-    //   const fetchWalletBalance = async () => {
-    //       const balance = await connection.getBalance(address); // Await the balance
-    //       setWalletBalance(balance); // Set the balance state
-    //       console.log("Wallet Balance:", balance); // Log the balance
-    //     };
-    //     fetchWalletBalance()
-    // }, [connection]);
+    // Destructure the cluster, clusters, and getExplorerUrl from useCluster
+    const { cluster, clusters, getExplorerUrl } = useCluster();
+  
+    // Example transaction path (replace with actual transaction ID as needed)
+    const transactionPath = 'some-transaction-id'; 
+    const explorerUrl = getExplorerUrl(transactionPath);
   
     return (
       <div>
-        <h2>Token Accounts</h2>
-
+        <h2>Current Cluster Information</h2>
+        <div>
+          <strong>Active Cluster:</strong> {cluster.name} ({cluster.network})
+        </div>
+        <div>
+          <strong>Available Clusters:</strong>
+          <ul>
+            {clusters.map((c) => (
+              <li key={c.name}>
+                {c.name} - {c.endpoint} {c.active ? '(Active)' : ''}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <a href={explorerUrl} target="_blank" rel="noopener noreferrer">
+            View Transaction on Explorer
+          </a>
+        </div>
       </div>
     );
   };
-  
-
-
 
 
 

@@ -36,16 +36,17 @@ export const defaultClusters: Cluster[] = [
     network: ClusterNetwork.Testnet,
   },
 ];
-// Stores the currently active cluster, initialized with the first cluster from defaultClusters
+// Stores the currently active cluster, initialized with the first cluster from defaultClusters - 'solana-cluster' is the key
 const clusterAtom = atomWithStorage<Cluster>(
   'solana-cluster',
   defaultClusters[0]
 );
-// Stores the list of available clusters, initialized with defaultClusters.
+// Stores the list of available clusters, initialized with defaultClusters.  - 'solana-clusters' is the key
 const clustersAtom = atomWithStorage<Cluster[]>(
   'solana-clusters',
   defaultClusters
 );
+
 // This derived atom maps over the clustersAtom and sets the active property for each cluster based on the currently active cluster.
 const activeClustersAtom = atom<Cluster[]>((get) => {
   const clusters = get(clustersAtom);
@@ -55,10 +56,9 @@ const activeClustersAtom = atom<Cluster[]>((get) => {
     active: item.name === cluster.name,
   }));
 });
-// This derived atom returns the currently active cluster from activeClustersAtom.
+// This derived atom returns the currently active cluster from activeClustersAtom. - If no active cluster is found, it defaults to the first cluster in the list.
 const activeClusterAtom = atom<Cluster>((get) => {
   const clusters = get(activeClustersAtom);
-
   return clusters.find((item) => item.active) || clusters[0];
 });
 // ClusterProviderContext: This interface defines the context that will be provided to the application, including the current cluster, list of clusters, and functions to add, delete, and set clusters.
@@ -71,6 +71,7 @@ export interface ClusterProviderContext {
   getExplorerUrl(path: string): string;
 }
 
+// This line creates a new context object using React's createContext function. The context will hold the values that you want to share across components, specifically the current cluster, list of clusters, and functions to manage them.
 const Context = createContext<ClusterProviderContext>(
   {} as ClusterProviderContext
 );
@@ -107,7 +108,7 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
 
-// This custom hook allows components to access the Solana cluster context using useContext.
+// When a component calls useCluster(), it gets access to the ClusterProviderContext, which includes the current cluster, list of clusters, and the functions to manage them.
 export function useCluster() {
   return useContext(Context);
 }
