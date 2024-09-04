@@ -14,7 +14,7 @@ import {
   useGetTokenAccounts,
   useRequestAirdrop,
   useTransferSol,
-} from './test-data-access';
+} from './ref-data-access';
 
 export function AccountBalance({ address }: { address: PublicKey }) {
   const query = useGetBalance({ address });

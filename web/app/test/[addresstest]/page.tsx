@@ -1,4 +1,4 @@
-import TestAccountDetailFeature from '@/components/test/test-detail-feature';
+import TestAccountDetailFeature from '@/components/reference/ref-detail-feature';
 
 export default function Page() {
   return <TestAccountDetailFeature />;

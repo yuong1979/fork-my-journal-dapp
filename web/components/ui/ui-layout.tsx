@@ -16,12 +16,12 @@ import {
 import toast, { Toaster } from 'react-hot-toast';
 
 
-import  {CountryUseQueryApp} from '../test/test-all';
-import  {TestComponent} from '../test/test-all';
-import  {TodoUseMutationApp} from '../test/test-all';
-import  {ContextApp} from '../test/test-all';
-import  {JotaiApp} from '../test/test-all';
-import  {TestClusterComponent} from '../test/test-all';
+import  {CountryUseQueryApp} from '../reference/ref-all';
+import  {TestComponent} from '../reference/ref-all';
+import  {TodoUseMutationApp} from '../reference/ref-all';
+import  {ContextApp} from '../reference/ref-all';
+import  {JotaiApp} from '../reference/ref-all';
+import  {TestClusterComponent} from '../reference/ref-all';
 
 
 
@@ -95,13 +95,19 @@ export function UiLayout({
       <div className="mx-4 lg:mx-auto">
 
         {/* < TodoUseMutationApp /> */}
+
         {/* < CountryUseQueryApp />  */}
+
         {/* < TestComponent /> */}
+
         {/* < ContextApp /> */}
+
         {/* < JotaiApp /> */}
 
 
-        < TestClusterComponent />
+        {/* < TestClusterComponent /> */}
+
+
       </div>
       
 
