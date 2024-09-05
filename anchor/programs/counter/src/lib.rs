@@ -10,7 +10,7 @@ declare_id!("6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE");
 
 >>>>>>> da55076 (chore: initial commit)
 #[program]
-pub mod counter {
+pub mod testing {
     use super::*;
 
   pub fn close(_ctx: Context<CloseCounter>) -> Result<()> {

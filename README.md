@@ -152,12 +152,15 @@ anchor test
 ``` deploy to devnet (run inside anchor directory)
 anchor deploy --provider.cluster devnet
 ```
-<<<<<<< HEAD
-=======
-
-=======
 
 ``` send sol tokens to a wallet
 solana transfer AfqgStkQV7wkBdiLbPL5T6w2GJjFqGzGWWXCmMeNApTt 2 --allow-unfunded-recipient
 ``` 
->>>>>>> 70c5ef4 (changed dynamic url name and added new experiment file)
+
+
+``` test new typescript api - make changes on these two scripts
+web/components/reference/ref-all.tsx
+web/components/ui-layout.tsx
+``` 
+
+
