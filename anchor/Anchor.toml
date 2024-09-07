@@ -15,7 +15,7 @@ counter = "6bWHexUSdE85tVyCpZK9DL3kbkZk8q1Wmc2Ph5sWzeFV"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

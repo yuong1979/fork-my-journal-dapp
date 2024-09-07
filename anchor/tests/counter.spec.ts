@@ -82,22 +82,6 @@ describe('counter', () => {
     expect(currentCount.count).toEqual(42);
   });
 
-  // it('Set close the counter account', async () => {
-  //   await program.methods
-  //     .close()
-  //     .accounts({
-  //       payer: payer.publicKey,
-  //       counter: counterKeypair.publicKey,
-  //     })
-  //     .rpc();
-
-  //   // The account should no longer exist, returning null.
-  //   const userAccount = await program.account.counter.fetchNullable(
-  //     counterKeypair.publicKey
-  //   );
-  //   expect(userAccount).toBeNull();
-  // });
-  
 
   it(
     'Set close the counter account',
