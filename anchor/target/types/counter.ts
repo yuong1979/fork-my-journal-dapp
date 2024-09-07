@@ -6,7 +6,11 @@
  */
 export type Counter = {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "address": "6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE",
+=======
+  "address": "6bWHexUSdE85tVyCpZK9DL3kbkZk8q1Wmc2Ph5sWzeFV",
+>>>>>>> 16f47b2 (adding voting anchor lib)
   "metadata": {
     "name": "counter",
     "version": "0.1.0",
