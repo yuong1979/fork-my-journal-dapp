@@ -49,3 +49,6 @@ test-ledger
 
 # Ignore environment variable files
 .env.local
+
+# Ignore all keypair files
+target/deploy/*.json
