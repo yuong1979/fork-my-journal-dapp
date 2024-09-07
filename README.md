@@ -164,3 +164,14 @@ web/components/ui-layout.tsx
 ``` 
 
 
+
+``` to generate new keypair for declare id
+solana-keygen new --outfile target/deploy/calculator-keypair.json
+solana address -k target/deploy/calculator-keypair.json
+
+``` 
+
+
+```  This command clears the cached artifacts and metadata that Nx maintains about your workspace. If there are any issues related to stale state or corrupted cache, nx reset helps resolve them by starting fresh.
+npx nx reset
+```
