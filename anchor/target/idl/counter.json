@@ -9,7 +9,6 @@
   "instructions": [
     {
       "name": "close",
-<<<<<<< HEAD
       "discriminator": [
         98,
         165,
@@ -20,9 +19,6 @@
         206,
         96
       ],
-=======
-      "discriminator": [98, 165, 201, 177, 108, 65, 206, 96],
->>>>>>> da55076 (chore: initial commit)
       "accounts": [
         {
           "name": "payer",
@@ -38,7 +34,6 @@
     },
     {
       "name": "decrement",
-<<<<<<< HEAD
       "discriminator": [
         106,
         227,
@@ -49,9 +44,6 @@
         150,
         101
       ],
-=======
-      "discriminator": [106, 227, 168, 59, 248, 27, 150, 101],
->>>>>>> da55076 (chore: initial commit)
       "accounts": [
         {
           "name": "counter",
@@ -62,7 +54,6 @@
     },
     {
       "name": "increment",
-<<<<<<< HEAD
       "discriminator": [
         11,
         18,
@@ -73,9 +64,6 @@
         59,
         33
       ],
-=======
-      "discriminator": [11, 18, 104, 9, 104, 174, 59, 33],
->>>>>>> da55076 (chore: initial commit)
       "accounts": [
         {
           "name": "counter",
@@ -86,7 +74,6 @@
     },
     {
       "name": "initialize",
-<<<<<<< HEAD
       "discriminator": [
         175,
         175,
@@ -97,9 +84,6 @@
         155,
         237
       ],
-=======
-      "discriminator": [175, 175, 109, 31, 13, 152, 155, 237],
->>>>>>> da55076 (chore: initial commit)
       "accounts": [
         {
           "name": "payer",
@@ -120,7 +104,6 @@
     },
     {
       "name": "set",
-<<<<<<< HEAD
       "discriminator": [
         198,
         51,
@@ -131,9 +114,6 @@
         126,
         194
       ],
-=======
-      "discriminator": [198, 51, 53, 241, 116, 29, 126, 194],
->>>>>>> da55076 (chore: initial commit)
       "accounts": [
         {
           "name": "counter",
@@ -151,7 +131,6 @@
   "accounts": [
     {
       "name": "Counter",
-<<<<<<< HEAD
       "discriminator": [
         255,
         176,
@@ -162,9 +141,6 @@
         124,
         25
       ]
-=======
-      "discriminator": [135, 64, 223, 168, 233, 143, 162, 215]
->>>>>>> da55076 (chore: initial commit)
     }
   ],
   "types": [
@@ -181,8 +157,4 @@
       }
     }
   ]
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> da55076 (chore: initial commit)

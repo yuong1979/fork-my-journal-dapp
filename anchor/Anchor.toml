@@ -1,11 +1,7 @@
 [toolchain]
 
 [features]
-<<<<<<< HEAD
 resolution = true
-=======
-seeds = false
->>>>>>> da55076 (chore: initial commit)
 skip-lint = false
 
 [programs.localnet]
