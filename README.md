@@ -100,33 +100,10 @@ npm run build
 
 
 
-solana config get
 
-solana config set --url http://localhost:8899
-
-solana config set --url devnet
-
-
-Things to do
-- consolidate the files into my-journal-dapp and make sure they can be run
-- complete the tutorial for https://solana.com/developers/guides/dapps/journal 
-- configure so that this can be deployed on to local as well
-- document how to deploy this on local
-
-
-
-``` synchronise all the keys in your project 
-anchor/src/file.ts
-anchor/programs/counter/src/lib.rs - change the declareid
-anchor/Anchor.toml
-anchor/programs/counter/target/idl/file.json
-anchor/programs/counter/target/types/file.ts
-
-``` 
-
-
-
+#####################################
 #### install and deploy frontend ####
+#####################################
 
 ``` install the neccessary packages
 npm install
@@ -136,42 +113,56 @@ npm install
 npm run dev
 ```
 
-#### deploy on devnet ####
-
-``` change all script to devnet on - ?
-```
+#####################################
+#### deploy / test on devnet or localnet ####
+#####################################
 
 ``` run test (run inside anchor directory)
 anchor build
 ```
 
-``` run test (run inside anchor directory)
+``` sync all keys (run inside anchor directory)
+anchor keys sync
+anchor keys list (to confirm that every program has a key)
+```
+
+``` run test either on localhost or devnet, change anchor.toml cluster to either reflect localnet or devnet before deployment
 anchor test
 ```
 
-``` deploy to devnet (run inside anchor directory)
-anchor deploy --provider.cluster devnet
+``` deploy to localhost or devnet, change anchor.toml cluster to either reflect localnet or devnet before deployment
+solana config set --url http://localhost:8899       (Ensure that solana-test-validator is running)
+solana config set --url devnet
+anchor deploy 
 ```
 
-``` send sol tokens to a wallet
+
+
+
+### send sol tokens to a wallet
 solana transfer AfqgStkQV7wkBdiLbPL5T6w2GJjFqGzGWWXCmMeNApTt 2 --allow-unfunded-recipient
-``` 
 
 
-``` test new typescript api - make changes on these two scripts
-web/components/reference/ref-all.tsx
-web/components/ui-layout.tsx
-``` 
-
-
-
-``` to generate new keypair for declare id
+#### to generate new keypair for declare id
 solana-keygen new --outfile target/deploy/calculator-keypair.json
 solana address -k target/deploy/calculator-keypair.json
 
-``` 
 
-
-```  This command clears the cached artifacts and metadata that Nx maintains about your workspace. If there are any issues related to stale state or corrupted cache, nx reset helps resolve them by starting fresh.
+####  Clears stale state or corrupted cache, nx reset helps resolve them by starting fresh
 npx nx reset
-```
+
+
+#### deploy programs separately
+solana program deploy <PROGRAM_FILE_PATH>
+i.e go to anchor directory and do - solana program deploy target/deploy/cpipda.so
+
+
+#### show programs
+solana program show <ACCOUNT_ADDRESS>
+i.e - solana program show 8cxaTXpBqsYzQDmWq9d8MnB49vo6AqRJKZb2d43QHB7r
+
+
+#### test solana libraries using these two files
+web/components/reference/ref-all.tsx
+web/components/ui-layout.tsx
+
