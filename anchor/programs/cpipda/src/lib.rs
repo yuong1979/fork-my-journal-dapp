@@ -7,7 +7,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};
  
-declare_id!("8cxaTXpBqsYzQDmWq9d8MnB49vo6AqRJKZb2d43QHB7r");
+declare_id!("EVR4YKgUuJe5hXEp46LjFCYPLj3smbfafqCM7va8uGm5");
 
 #[program]
 pub mod cpipda {

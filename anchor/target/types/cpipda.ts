@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/cpipda.json`.
  */
 export type Cpipda = {
-  "address": "8cxaTXpBqsYzQDmWq9d8MnB49vo6AqRJKZb2d43QHB7r",
+  "address": "EVR4YKgUuJe5hXEp46LjFCYPLj3smbfafqCM7va8uGm5",
   "metadata": {
     "name": "cpipda",
     "version": "0.1.0",

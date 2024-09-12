@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/cpi.json`.
  */
 export type Cpi = {
-  "address": "449LQd42SEKpDKLWHwNoT9Vnz6rwDqcnA4ek5pkwKPEN",
+  "address": "4kjmpyTnLC2XR8ago9gyRN2acvHgsYMYyYbd5T2gSkpf",
   "metadata": {
     "name": "cpi",
     "version": "0.1.0",
