@@ -7,6 +7,10 @@
     "anchor-build": "nx run anchor:anchor build",
     "anchor-localnet": "nx run anchor:anchor localnet",
     "anchor-test": "nx run anchor:anchor test",
+
+    "1_get_test_sol": "ts-node scripts/1_get_test_sol.ts",
+    "2_subscribing_to_events": "ts-node scripts/2_subscribing_to_events.ts",
+
     "feature": "nx generate @solana-developers/preset-react:feature",
     "build": "nx build web",
     "dev": "nx serve web"

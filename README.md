@@ -97,8 +97,15 @@ npm run build
 ```
 
 
-
-
+#####################################
+#### reset keypair ####
+#####################################
+### generate a new keypair
+solana-keygen new --outfile target/deploy/your_program-keypair.json
+### get the keypair public key
+solana address -k target/deploy/your_program-keypair.json
+### replace declare id in lib.rs with new keypair
+change the declare id in lib.rs
 
 
 #####################################
@@ -166,3 +173,20 @@ i.e - solana program show 8cxaTXpBqsYzQDmWq9d8MnB49vo6AqRJKZb2d43QHB7r
 web/components/reference/ref-all.tsx
 web/components/ui-layout.tsx
 
+
+#### deploy specific programs - in this case counter
+solana program deploy target/deploy/counter.so
+
+#### upgrade specific programs - in this case counter
+anchor upgrade target/deploy/counter.so --program-id FKDvA41GviyF298NbfSZCMMk5WM7TLrCu1oFcyZFN3sr
+
+<!-- solana program deploy --upgrade-authority <UPGRADE_AUTHORITY_SIGNER> target/deploy/your_program.so -->
+
+
+<!-- intro -->
+<!-- https://solana.com/developers/guides/games/nfts-in-games -->
+<!-- https://solana.com/developers/guides/getstarted/local-rust-hello-world -->
+<!-- https://solana.com/developers/guides/getstarted/scaffold-nextjs-anchor -->
+
+
+<!-- beginner -->
