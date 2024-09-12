@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/original.json`.
  */
 export type Original = {
-  "address": "CdD79ktXrzQCTmWRH2UVBy6TjjQsSoMgpAzYTr5f575B",
+  "address": "7wjZqkQDx961U1JPN7QGerPPo9WABKe9fT8RF3FFv3U9",
   "metadata": {
     "name": "original",
     "version": "0.1.0",

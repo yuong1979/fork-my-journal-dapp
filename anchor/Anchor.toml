@@ -1,17 +1,18 @@
 [toolchain]
+anchor_version = "0.30.1"
 
 [features]
 resolution = true
 skip-lint = false
 
-[programs.devnet]
-counter = "FKDvA41GviyF298NbfSZCMMk5WM7TLrCu1oFcyZFN3sr"
+[programs.localnet]
+counter = "4kxSGyHvsmW7cG5bKUUeVBYXMy53uaY2gw2UVJDLW9un"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Devnet"
+cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
