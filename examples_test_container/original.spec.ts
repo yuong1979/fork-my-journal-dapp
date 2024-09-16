@@ -1,7 +1,7 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { Original } from "../target/types/original";
-import { Connection } from "@solana/web3.js";
+
 
 describe("original", () => {
   // Configure the client to use the local cluster.
@@ -19,7 +19,6 @@ describe("original", () => {
     const tx = await program.methods.helloWorld().rpc();
     console.log("Your transaction signature", tx);
   });
-
 
   const connection = anchor.getProvider().connection;
   
@@ -43,12 +42,6 @@ describe("original", () => {
     //   maxSupportedTransactionVersion: 0, // Set the maximum supported transaction version
     //   commitment: "confirmed", // Set the commitment level to confirmed
     // } as GetVersionedTransactionConfig); // Cast to GetVersionedTransactionConfig
-
-    ///// method 3 /////// 
-    // // Fetch the transaction details with confirmed commitment
-    // const transactionDetails = await connection.getTransaction(tx, {
-    //   commitment: "confirmed", // Set the commitment level to confirmed
-    // });
   
     // Log the transaction details to see the message
     if (transactionDetails?.meta?.logMessages) {

@@ -178,7 +178,17 @@ web/components/ui-layout.tsx
 solana program deploy target/deploy/counter.so
 
 #### upgrade specific programs - in this case counter
-anchor upgrade target/deploy/counter.so --program-id FKDvA41GviyF298NbfSZCMMk5WM7TLrCu1oFcyZFN3sr
+anchor upgrade target/deploy/counter.so --program-id 4kxSGyHvsmW7cG5bKUUeVBYXMy53uaY2gw2UVJDLW9un
+
+
+#### issues with corrupted npm
+rm -rf node_modules
+rm package-lock.json
+npm install
+anchor test
+
+
+
 
 <!-- solana program deploy --upgrade-authority <UPGRADE_AUTHORITY_SIGNER> target/deploy/your_program.so -->
 

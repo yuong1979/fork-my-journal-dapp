@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};
 
-declare_id!("Dd4PFzcBcBBHTymnYULp5SWeeiMu7Q3AV5G8b6z62iyY");
+declare_id!("8HakXHPfTimBKRA8Lqrjx91dCNc4o4tW8qft1xHQ2o8N");
 
 #[program]
 pub mod cpi {

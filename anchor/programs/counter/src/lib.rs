@@ -2,7 +2,7 @@
 
 use anchor_lang::prelude::*;
 
-declare_id!("4kxSGyHvsmW7cG5bKUUeVBYXMy53uaY2gw2UVJDLW9un");
+declare_id!("3TXNB7PnkZbibFW6squxKdUMp7GQTqJbUvpmfeYiPwza");
 
 // 7AGmMcgd1SjoMsCcXAAYwRgB9ihCyM8cZqjsUqriNRQt - new
 // 6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE - backup 
@@ -50,6 +50,7 @@ pub struct InitializeCounter<'info> {
   pub counter: Account<'info, Counter>,
   pub system_program: Program<'info, System>,
 }
+
 #[derive(Accounts)]
 pub struct CloseCounter<'info> {
   #[account(mut)]
@@ -64,6 +65,7 @@ pub struct CloseCounter<'info> {
 
 #[derive(Accounts)]
 pub struct Update<'info> {
+  
   #[account(mut)]
   pub counter: Account<'info, Counter>,
 }
