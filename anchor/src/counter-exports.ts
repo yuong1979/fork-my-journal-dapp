@@ -25,7 +25,8 @@ export function getCounterProgramId(cluster: Cluster) {
     
     case 'devnet':
       // This is the program ID for the Counter program on devnet and testnet.
-      return new PublicKey('6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE');
+      // return new PublicKey('6cgM7fMwhdSzA8KSMXXj8TeiK2xRmatCyMdZB4xXcvJE'); // - do this to hardcode the program id from lib.rs
+      return COUNTER_PROGRAM_ID; // Use the ID from the IDL
 
     case 'testnet':
       // // This is the program ID for the Counter program on devnet and testnet.

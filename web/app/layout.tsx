@@ -14,6 +14,7 @@ const links: { label: string; path: string }[] = [
   { label: 'Clusters', path: '/clusters' },
   { label: 'Counter Program', path: '/counter' },
   { label: 'Testing', path: '/test' },
+  { label: 'Journal Entry', path: '/journal' },
 ];
 
 //Inside the RootLayout, the children prop is populated with the content of the current page, which in this case is the DashboardFeature component from page.tsx.
@@ -28,6 +29,8 @@ export default function RootLayout({
         <ReactQueryProvider>
           <ClusterProvider>
             <SolanaProvider>
+            {/* The page.tsx (DashboardFeature) file is integrated into the layout defined in layout.tsx through the {children} prop, but it's not explicitly visible. */}
+            {/* if the page is some other route - such as /account, it would be rendering app/account/page.tsx */}
               <UiLayout links={links}>{children}</UiLayout> 
             </SolanaProvider>
           </ClusterProvider>

@@ -39,12 +39,20 @@ export function useGetBalance({ address }: { address: PublicKey }) {
 
 
 
+
+
+
+
 export function useGetSignatures({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
 
+  //getConfirmedSignaturesForAddress2 is deprecated - using getSignaturesForAddress instead
+  // const getSignaturesForAddress = connection.getSignaturesForAddress(address)
+  // console.log("getSignaturesForAddress", getSignaturesForAddress)
+
   return useQuery({
     queryKey: ['get-signatures', { endpoint: connection.rpcEndpoint, address }],
-    queryFn: () => connection.getConfirmedSignaturesForAddress2(address),
+    queryFn: () => connection.getSignaturesForAddress(address),
   });
 }
 
@@ -175,6 +183,8 @@ export function useRequestAirdrop({ address }: { address: PublicKey }) {
   });
 }
 
+
+// constructs a transaction for transferring SOL (the native token of the Solana blockchain) from one account to another.
 async function createTransaction({
   publicKey,
   destination,

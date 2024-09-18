@@ -6,7 +6,7 @@ use bytemuck::{Pod, Zeroable};
 use std::str::FromStr; // Import FromStr for Pubkey conversion
 
 
-declare_id!("Dez3NYhjPos4yRXPonkxhv9dbqjQadLGZvdtB3wDD6Da");
+declare_id!("AKzgeXsXqk21Gf3ZXhY92BH4zBwmYnyETv69dhN8sJ6F");
 
 #[macro_export] // attribute indicates that this macro should be made available to other modules or crates that include your crate. Without this attribute, the macro would only be accessible within the module where it is defined.
 #[cfg(not(feature = "trace-compute"))]

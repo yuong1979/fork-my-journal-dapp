@@ -229,6 +229,7 @@ export function AccountTokens({ address }: { address: PublicKey }) {
   );
 }
 
+
 export function AccountTransactions({ address }: { address: PublicKey }) {
   const query = useGetSignatures({ address });
   const [showAll, setShowAll] = useState(false);
@@ -256,9 +257,13 @@ export function AccountTransactions({ address }: { address: PublicKey }) {
         </div>
       </div>
       {query.isError && (
-        <pre className="alert alert-error">
-          Error: {query.error?.message.toString()}
-        </pre>
+        <>
+          {/* Log the error message to the console in a div structure */}
+          {console.log('Error fetching transaction history:', query.error?.message)}
+          <pre className="alert alert-error">
+            Error: {query.error?.message.toString()}
+          </pre>
+        </>
       )}
       {query.isSuccess && (
         <div>

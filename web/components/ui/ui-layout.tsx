@@ -36,7 +36,10 @@ export function UiLayout({
 
 
   return (
+    
     <div className="h-full flex flex-col">
+      
+      {/* navbar */}
       <div className="navbar bg-base-300 text-neutral-content flex-col md:flex-row space-y-2 md:space-y-0">
         <div className="flex-1">
           <Link className="btn btn-ghost normal-case text-xl" href="/">
@@ -60,9 +63,12 @@ export function UiLayout({
           <ClusterUiSelect />
         </div>
       </div>
+
+      {/* By wrapping the AccountChecker inside the ClusterChecker, you ensure that the account check is only performed if the cluster connection is successful. */}
       <ClusterChecker>
         <AccountChecker />
       </ClusterChecker>
+
       <div className="flex-grow mx-4 lg:mx-auto">
         <Suspense
           fallback={
@@ -110,13 +116,16 @@ export function UiLayout({
 
       </div>
       
-
-
-
-
     </div>
   );
 }
+
+
+
+
+
+
+
 
 export function AppModal({
   children,

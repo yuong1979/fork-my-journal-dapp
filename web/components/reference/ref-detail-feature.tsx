@@ -15,6 +15,9 @@ import {
 } from './ref-ui';
 
 
+// the function TestAccountDetailFeature is representated in the page.tsx inside [addresstest] and is only accessible if a public key is available.
+// if there is no public key (or connected wallet) the user is directed to page.tsx is outside of [addresstest] or the function TestAccountListFeature
+// the route of this page will be represented with the test/address
 
 export default function TestAccountDetailFeature() {
 
@@ -26,7 +29,6 @@ export default function TestAccountDetailFeature() {
       return;
     }
     try {
-      console.log(params.addresstest)
       return new PublicKey(params.addresstest);
 
     } catch (e) {
@@ -75,7 +77,9 @@ export default function TestAccountDetailFeature() {
         </div>
       </AppHero>
       <div className="space-y-8">
+        {/* <h2>Account Tokens</h2> */}
         <AccountTokens address={address} />
+        {/* <h2>Account Transactions</h2> */}
         <AccountTransactions address={address} />
       </div>
     </div>

@@ -84,18 +84,24 @@ interface Todo {
   
   export const TodoUseMutationApp: React.FC = () => {
     const [title, setTitle] = useState<string>('');
+    // The useQueryClient hook is used to access the Query Client instance that manages all queries and mutations in your application.
+    // The Query Client is responsible for caching, updating, and invalidating queries. By using this hook, you can perform operations like invalidating specific queries or refetching data when certain conditions are met.
     const queryClient = useQueryClient();
 
     const { data: todos, error, isLoading } = useQuery<Todo[]>({
         queryKey: ['todos'], // Use an array for the query key
         queryFn: fetchTodos,
       });
-  
+    // The useMutation hook is part of React Query and is used for handling mutations, which are operations that modify data (such as creating, updating, or deleting data) rather than just fetching it.
+    // useMutation provides a way to define a mutation function (like sending a request to an API) and manage its state (loading, error, success). It allows you to perform asynchronous operations and handle their results.
     const mutation = useMutation({
+      // The mutationFn is a key property of the object passed to useMutation. It defines the actual function that will be executed when the mutation is triggered.
       mutationFn: createTodo,
       onSuccess: (data) => {
         console.log('Todo created successfully!');
         setTitle('');
+        //  The invalidateQueries method is used to mark specific queries as "stale," prompting them to refetch their data the next time they are accessed.
+
         // Refetch the todos to update the list
         queryClient.invalidateQueries({ queryKey: ['todos'] }); // Pass an object with queryKey
       },

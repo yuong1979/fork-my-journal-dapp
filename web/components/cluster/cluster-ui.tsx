@@ -58,6 +58,8 @@ export function ClusterChecker({ children }: { children: ReactNode }) {
     );
   }
   return children;
+  //   When you return children from the ClusterChecker component, you are allowing whatever was passed to it (in this case, the <AccountChecker /> component) to be rendered if the conditions in the ClusterChecker are met (i.e., if there are no errors connecting to the cluster).
+// This means that if the cluster connection is successful (i.e., no loading or error state), the ClusterChecker will render its children, which allows for a seamless integration of multiple components.
 }
 
 export function ClusterUiSelect() {

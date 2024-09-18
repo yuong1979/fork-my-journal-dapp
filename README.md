@@ -124,13 +124,15 @@ npm run dev
 #### deploy / test on devnet or localnet ####
 #####################################
 
-``` run test (run inside anchor directory)
-anchor build
-```
+``` make sure that you have deleted the target folder if you are starting a new project
 
-``` sync all keys (run inside anchor directory)
+``` sync all keys (run inside anchor directory) to generate new keypairs / and replace those keypair with your own if you want
 anchor keys sync
 anchor keys list (to confirm that every program has a key)
+```
+
+``` run test (run inside anchor directory)
+anchor build
 ```
 
 ``` run test either on localhost or devnet, change anchor.toml cluster to either reflect localnet or devnet before deployment
@@ -142,6 +144,11 @@ solana config set --url http://localhost:8899       (Ensure that solana-test-val
 solana config set --url devnet
 anchor deploy 
 ```
+
+``` remove the idl and types inside the target folder so that when you run anchor build, it could be rebuild from scratch, leaves original keypair unchanged inside the deploy folder
+anchor clean
+```
+
 
 
 
@@ -186,6 +193,26 @@ rm -rf node_modules
 rm package-lock.json
 npm install
 anchor test
+
+
+**Check if the program is upgradable**
+solana program show <PROGRAM_ADDRESS>
+
+
+#### generating a new keypair
+solana-keygen new --outfile ~/new-keypair.json
+#### viewing the generated new keypair
+solana-keygen pubkey ~/new-keypair.json
+
+
+## closing the program (include the program id)
+solana program close DsRFFDhjJ2a1edTB1NZnDmYHJZxqGGTbod3261HPj59t --bypass-warning
+
+
+## Continue the deployment of the program (be inside anchor folder running this)
+solana-keygen recover -o recovered_keypair.json --force
+solana program deploy target/deploy/my_journal_dapp.so --buffer recovered_keypair.json
+
 
 
 
