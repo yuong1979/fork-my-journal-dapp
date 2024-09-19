@@ -214,6 +214,9 @@ solana-keygen recover -o recovered_keypair.json --force
 solana program deploy target/deploy/my_journal_dapp.so --buffer recovered_keypair.json
 
 
+## creating a new scaffold nextjs + anchor
+npx create-solana-dapp@latest
+
 
 
 
@@ -225,5 +228,58 @@ solana program deploy target/deploy/my_journal_dapp.so --buffer recovered_keypai
 <!-- https://solana.com/developers/guides/getstarted/local-rust-hello-world -->
 <!-- https://solana.com/developers/guides/getstarted/scaffold-nextjs-anchor -->
 
+## Intro
+Create a token on Solana - Done
+https://solana.com/developers/guides/getstarted/how-to-create-a-token
 
-<!-- beginner -->
+## Beginner
+How to CPI with a PDA Signer in a Solana program - Done
+https://solana.com/developers/guides/getstarted/how-to-cpi-with-signer
+
+
+Hello World for Solana Game Development
+https://solana.com/developers/guides/games/hello-world
+Saving game state
+https://solana.com/developers/guides/games/saving-game-state
+How to use the Default Account State extension
+https://solana.com/developers/guides/token-extensions/default-account-state
+Getting Started with Token Extensions
+https://solana.com/developers/guides/token-extensions/getting-started
+How to use the Interest-Bearing extension
+https://solana.com/developers/guides/token-extensions/interest-bearing-tokens
+How to use the Immutable Owner extension
+https://solana.com/developers/guides/token-extensions/immutable-owner
+How to use the Mint Close Authority extension
+https://solana.com/developers/guides/token-extensions/mint-close-authority
+How to use the Non-transferable extension
+https://solana.com/developers/guides/token-extensions/non-transferable 
+How to use the Permanent Delegate extension
+https://solana.com/developers/guides/token-extensions/permanent-delegate
+How to use the Reallocate instruction
+https://solana.com/developers/guides/token-extensions/reallocate
+How to use the Reallocate instruction
+https://solana.com/developers/guides/token-extensions/reallocate
+How to use the Required Memo token extension
+https://solana.com/developers/guides/token-extensions/required-memo
+How to use the Transfer Fee extension
+https://solana.com/developers/guides/token-extensions/transfer-fee
+
+
+
+
+## intermediate
+
+Storing SOL in a PDA
+https://solana.com/developers/guides/games/store-sol-in-pda
+How to interact with tokens in programs
+https://solana.com/developers/guides/games/interact-with-tokens
+cash app on solana
+https://solana.com/developers/guides/dapps/cash-app#solana-mobile-app-template-set-up
+How to interact with tokens in programs
+https://solana.com/developers/guides/games/interact-with-tokens
+Storing SOL in a PDA
+https://solana.com/developers/guides/games/store-sol-in-pda
+Get All Program Accounts using TypeScript
+https://solana.com/developers/guides/javascript/get-program-accounts
+How to use the Transfer Hook extension
+https://solana.com/developers/guides/token-extensions/transfer-hook
