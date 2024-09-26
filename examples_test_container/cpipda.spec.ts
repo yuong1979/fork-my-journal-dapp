@@ -23,6 +23,9 @@ describe("cpipda", () => {
     program.programId
   );
 
+  console.log("PDA", PDA)
+  console.log("wallet.publicKey", wallet.publicKey)
+
   const transferAmount = 0.1 * LAMPORTS_PER_SOL;
 
   it("Fund PDA with SOL", async () => {
@@ -58,4 +61,7 @@ describe("cpipda", () => {
       `\nTransaction Signature: https://solana.fm/tx/${transactionSignature}?cluster=devnet-solana`
     );
   });
+
+  console.log('pda done!!')
+
 });

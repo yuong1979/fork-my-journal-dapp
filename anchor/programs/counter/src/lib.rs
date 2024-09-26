@@ -43,9 +43,9 @@ pub struct InitializeCounter<'info> {
   pub payer: Signer<'info>,
 
   #[account(
-  init,
-  space = 8 + Counter::INIT_SPACE,
-  payer = payer
+    init,
+    space = 8 + Counter::INIT_SPACE,
+    payer = payer
   )]
   pub counter: Account<'info, Counter>,
   pub system_program: Program<'info, System>,

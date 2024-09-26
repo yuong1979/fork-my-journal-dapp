@@ -8,8 +8,10 @@
     "anchor-localnet": "nx run anchor:anchor localnet",
     "anchor-test": "nx run anchor:anchor test",
 
-    "1_get_test_sol": "ts-node scripts/1_get_test_sol.ts",
-    "2_subscribing_to_events": "ts-node scripts/2_subscribing_to_events.ts",
+    "client": "ts-node anchor/scripts/client.ts",
+
+    "1_get_test_sol": "ts-node anchor/scripts/1_get_test_sol.ts",
+    "2_subscribing_to_events": "ts-node anchor/scripts/2_subscribing_to_events.ts",
 
 
     "feature": "nx generate @solana-developers/preset-react:feature",

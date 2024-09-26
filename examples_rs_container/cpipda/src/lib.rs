@@ -7,7 +7,8 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program::{transfer, Transfer};
  
-declare_id!("FqfPgq6XDQVy9ozdjyNirXTZcvzwXqJaaC9bpdDCmi6Q");
+declare_id!("HyQso9nsNcEGSY8mAiDWjSWKrXazCp9mRv8tgKxVLt1R");
+
 
 #[program]
 pub mod cpipda {
@@ -45,6 +46,7 @@ pub struct SolTransfer<'info> {
         seeds = [b"pda", recipient.key().as_ref()],
         bump,
     )]
+    //SystemAccount<'info> is a type that represents accounts managed by the Solana System Program. This type is used to denote accounts that are involved in basic operations such as transferring SOL, creating new accounts, or managing account balances.
     pda_account: SystemAccount<'info>,
     #[account(mut)]
     recipient: SystemAccount<'info>,
@@ -53,8 +55,8 @@ pub struct SolTransfer<'info> {
 
 
 
-
-
+// Also, why does the seed need to include the recipient.key? what does the recipient.key mean?
+// why is the recipient also the signer?
 
 
 

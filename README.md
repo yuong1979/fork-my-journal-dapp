@@ -97,15 +97,7 @@ npm run build
 ```
 
 
-#####################################
-#### reset keypair ####
-#####################################
-### generate a new keypair
-solana-keygen new --outfile target/deploy/your_program-keypair.json
-### get the keypair public key
-solana address -k target/deploy/your_program-keypair.json
-### replace declare id in lib.rs with new keypair
-change the declare id in lib.rs
+
 
 
 #####################################
@@ -120,11 +112,19 @@ npm install
 npm run dev
 ```
 
+#### test solana libraries using these two files
+web/components/reference/ref-all.tsx
+web/components/ui-layout.tsx
+
+
+
 #####################################
-#### deploy / test on devnet or localnet ####
+#### deploy / test anchor backend on devnet or localnet ####
 #####################################
 
 ``` make sure that you have deleted the target folder if you are starting a new project
+
+``` make sure that you have your lib.rs and anchor.toml created with the id as "11111111111111111111111111111111" in both files
 
 ``` sync all keys (run inside anchor directory) to generate new keypairs / and replace those keypair with your own if you want
 anchor keys sync
@@ -151,42 +151,39 @@ anchor clean
 
 
 
+#####################################
+#### Running single .ts files on localnet ####
+#####################################
+////////////////////////////////////////////////////////////
+/////////// Running on Local net ///////////////////////////
+////////////////////////////////////////////////////////////
+// change anchor.toml file to run on local
+// change the script from https://api.devnet.solana.com to http://127.0.0.1:8899
+// run solana config set --url http://127.0.0.1:8899
+// run "solana-test-validator" on another window
+// run "anchor build"
+// run "anchor deploy"
+// run "npx ts-node scripts/tiny_adventure.ts" (example)
 
 
-### send sol tokens to a wallet
-solana transfer AfqgStkQV7wkBdiLbPL5T6w2GJjFqGzGWWXCmMeNApTt 2 --allow-unfunded-recipient
+
+#####################################
+#### Running single .ts files on devnet ####
+#####################################
+// change anchor.toml file to run on devnet
+// change the script from http://127.0.0.1:8899 to https://api.devnet.solana.com
+// run "solana config set --url devnet"
+// run "anchor build"
+// run "anchor deploy"
+// run "npx ts-node scripts/tiny_adventure.ts" (example)
 
 
-#### to generate new keypair for declare id
-solana-keygen new --outfile target/deploy/calculator-keypair.json
-solana address -k target/deploy/calculator-keypair.json
 
 
-####  Clears stale state or corrupted cache, nx reset helps resolve them by starting fresh
-npx nx reset
 
-
-#### deploy programs separately
-solana program deploy <PROGRAM_FILE_PATH>
-i.e go to anchor directory and do - solana program deploy target/deploy/cpipda.so
-
-
-#### show programs
-solana program show <ACCOUNT_ADDRESS>
-i.e - solana program show 8cxaTXpBqsYzQDmWq9d8MnB49vo6AqRJKZb2d43QHB7r
-
-
-#### test solana libraries using these two files
-web/components/reference/ref-all.tsx
-web/components/ui-layout.tsx
-
-
-#### deploy specific programs - in this case counter
-solana program deploy target/deploy/counter.so
-
-#### upgrade specific programs - in this case counter
-anchor upgrade target/deploy/counter.so --program-id 4kxSGyHvsmW7cG5bKUUeVBYXMy53uaY2gw2UVJDLW9un
-
+#####################################
+#### NPM/NPX related bash commands
+#####################################
 
 #### issues with corrupted npm
 rm -rf node_modules
@@ -194,39 +191,82 @@ rm package-lock.json
 npm install
 anchor test
 
-
-**Check if the program is upgradable**
-solana program show <PROGRAM_ADDRESS>
-
-
-#### generating a new keypair
-solana-keygen new --outfile ~/new-keypair.json
-#### viewing the generated new keypair
-solana-keygen pubkey ~/new-keypair.json
-
-
-## closing the program (include the program id)
-solana program close DsRFFDhjJ2a1edTB1NZnDmYHJZxqGGTbod3261HPj59t --bypass-warning
-
-
-## Continue the deployment of the program (be inside anchor folder running this)
-solana-keygen recover -o recovered_keypair.json --force
-solana program deploy target/deploy/my_journal_dapp.so --buffer recovered_keypair.json
-
-
 ## creating a new scaffold nextjs + anchor
 npx create-solana-dapp@latest
 
+### run .ts script inside of anchor
+npx ts-node scripts/<PROGRAM_NAME>.ts
+npx ts-node scripts/tiny_adventure.ts (example)
+
+####  Clears stale state or corrupted cache, nx reset helps resolve them by starting fresh
+npx nx reset
 
 
 
-<!-- solana program deploy --upgrade-authority <UPGRADE_AUTHORITY_SIGNER> target/deploy/your_program.so -->
 
 
-<!-- intro -->
-<!-- https://solana.com/developers/guides/games/nfts-in-games -->
-<!-- https://solana.com/developers/guides/getstarted/local-rust-hello-world -->
-<!-- https://solana.com/developers/guides/getstarted/scaffold-nextjs-anchor -->
+
+#####################################
+#### Solana / Anchor related bash commands
+#####################################
+
+#### to generate or reset keypair in the target deploy folder or user can run anchor keys sync to get a new key
+solana-keygen new --outfile target/deploy/<FILE_NAME>.json
+solana-keygen new --outfile target/deploy/calculator-keypair.json (example)
+#### retrieve the public address of the keypair that has been generated
+solana address -k target/deploy/<FILE_NAME>.json
+solana address -k target/deploy/calculator-keypair.json (example)
+
+#### generating a new keypair in the current directory
+solana-keygen new --outfile ./new-keypair.json
+#### viewing the generated new keypair
+solana-keygen pubkey ./new-keypair.json
+
+#### send sol tokens to a wallet
+solana transfer AfqgStkQV7wkBdiLbPL5T6w2GJjFqGzGWWXCmMeNApTt 2 --allow-unfunded-recipient
+
+#### deploy single program
+solana program deploy <PROGRAM_FILE_PATH>
+solana program deploy target/deploy/counter.so (example)
+#### Or this
+anchor deploy --program-name <PROGRAM_NAME>
+anchor deploy --program-name tiny_adventure (example)
+
+#### Check program details - and whether or not it is upgradable
+solana program show <ACCOUNT_ADDRESS>
+solana program show 8cxaTXpBqsYzQDmWq9d8MnB49vo6AqRJKZb2d43QHB7r (example)
+
+#### upgrade specific programs - in this case counter
+anchor upgrade target/deploy/counter.so --program-id <ACCOUNT_ADDRESS>
+anchor upgrade target/deploy/counter.so --program-id 4kxSGyHvsmW7cG5bKUUeVBYXMy53uaY2gw2UVJDLW9un (example)
+
+#### closing the program (include the program id)
+solana program close <PROGRAM_ADDRESS> --bypass-warning
+solana program close DsRFFDhjJ2a1edTB1NZnDmYHJZxqGGTbod3261HPj59t --bypass-warning (example)
+
+#### Continue the deployment of the program if deployment is halted (be inside anchor folder running this)
+solana-keygen recover -o recovered_keypair.json --force
+solana program deploy target/deploy/<PROGRAM_NAME>.so --buffer recovered_keypair.json
+solana program deploy target/deploy/tiny_adventure.so --buffer recovered_keypair.json (example)
+
+#### increase the size of the program deployed on devnet or mainnet etc
+solana program extend <PROGRAM_NAME> 20000 -u d -k ~/.config/solana/id.json
+solana program extend 5N6KPnhjSLNahLytmL2NhTZy95Hk4CujAe6xLP2xmtwy 20000 -u d -k ~/.config/solana/id.json (example)
+
+#### For production - to deploy selected program with a designated upgrade authority user hardware wallet / multisig
+solana program deploy --upgrade-authority <UPGRADE_AUTHORITY_SIGNER> target/deploy/<PROGRAM_NAME>.so
+
+
+
+
+
+
+
+
+
+#####################################
+#### Tutorials ####
+#####################################
 
 ## Intro
 Create a token on Solana - Done
@@ -283,3 +323,5 @@ Get All Program Accounts using TypeScript
 https://solana.com/developers/guides/javascript/get-program-accounts
 How to use the Transfer Hook extension
 https://solana.com/developers/guides/token-extensions/transfer-hook
+
+
